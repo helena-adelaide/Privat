@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Indkøbsliste</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        ul {
+            list-style-type: none;
+        }
+    </style>
+</head>
+<body>
+    <h1>Indkøbsliste</h1>
+    <ul id="shopping-list"></ul>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            let weekPlan = JSON.parse(localStorage.getItem('weekPlan'));
+            let ingredientCount = {};
+
+            weekPlan.forEach(day => {
+                day.ingredients.forEach(ingredient => {
+                    if (ingredient) {
+                        ingredientCount[ingredient] = (ingredientCount[ingredient] || 0) + 1;
+                    }
+                });
+            });
+
+            let shoppingList = document.getElementById('shopping-list');
+            for (let [ingredient, count] of Object.entries(ingredientCount)) {
+                let listItem = document.createElement('li');
+                listItem.textContent = `${count}x ${ingredient}`;
+                shoppingList.appendChild(listItem);
+            }
+        });
+    </script>
+</body>
+</html>

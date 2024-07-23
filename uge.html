@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ugens Madplan</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .day {
+            margin-bottom: 20px;
+        }
+        .ingredients {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Ugens Madplan</h1>
+    <div id="week">
+        <div class="day">
+            <h2>Mandag</h2>
+            <input type="text" placeholder="Ret" class="dish">
+            <textarea placeholder="Ingredienser" class="ingredients"></textarea>
+        </div>
+        <div class="day">
+            <h2>Tirsdag</h2>
+            <input type="text" placeholder="Ret" class="dish">
+            <textarea placeholder="Ingredienser" class="ingredients"></textarea>
+        </div>
+        <div class="day">
+            <h2>Onsdag</h2>
+            <input type="text" placeholder="Ret" class="dish">
+            <textarea placeholder="Ingredienser" class="ingredients"></textarea>
+        </div>
+        <div class="day">
+            <h2>Torsdag</h2>
+            <input type="text" placeholder="Ret" class="dish">
+            <textarea placeholder="Ingredienser" class="ingredients"></textarea>
+        </div>
+        <div class="day">
+            <h2>Fredag</h2>
+            <input type="text" placeholder="Ret" class="dish">
+            <textarea placeholder="Ingredienser" class="ingredients"></textarea>
+        </div>
+        <div class="day">
+            <h2>Lørdag</h2>
+            <input type="text" placeholder="Ret" class="dish">
+            <textarea placeholder="Ingredienser" class="ingredients"></textarea>
+        </div>
+        <div class="day">
+            <h2>Søndag</h2>
+            <input type="text" placeholder="Ret" class="dish">
+            <textarea placeholder="Ingredienser" class="ingredients"></textarea>
+        </div>
+        <!-- Gentag for alle ugens dage -->
+    </div>
+    <button id="generate-list">Generér Indkøbsliste</button>
+    <script>
+        document.getElementById('generate-list').addEventListener('click', function() {
+            let dishes = document.querySelectorAll('.dish');
+            let ingredients = document.querySelectorAll('.ingredients');
+            let weekPlan = [];
+
+            dishes.forEach((dish, index) => {
+                let dayPlan = {
+                    day: dish.previousElementSibling.innerText,
+                    dish: dish.value,
+                    ingredients: ingredients[index].value.split('\n')
+                };
+                weekPlan.push(dayPlan);
+            });
+
+            localStorage.setItem('weekPlan', JSON.stringify(weekPlan));
+            window.location.href = 'indkøbsliste.html';
+        });
+    </script>
+</body>
+</html>
